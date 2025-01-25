@@ -20,73 +20,87 @@ class _HomePageState extends State<HomePage> {
   }
 
   final List<Widget> _pages = [
-    ShopPage(),
-    CartPage()
+    const ShopPage(),
+    const CartPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.black,
+        elevation: 0,
+        title: const Text(
+          'Sneaker Store',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: Colors.grey[900],
+        backgroundColor: Colors.black,
         child: Column(
           children: [
-            DrawerHeader(child: Image.asset('assets/images/nike.png')),
-            ListTile(
-              leading: Icon(
-                Icons.home,
-                color: Colors.white,
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.grey,
               ),
-              title: Text(
+              child: Center(
+                child: Image.asset('assets/images/nike.png', height: 100),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home, color: Colors.white),
+              title: const Text(
                 'Home',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.info,
-                color: Colors.white,
-              ),
-              title: Text(
-                'About',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-            Spacer(),
-            ListTile(
-              leading: Icon(
-                Icons.logout_rounded,
-                color: Colors.white,
-              ),
-              title: Text(
-                'Logout',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
               ),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LandingPage(),
-                    ));
+                Navigator.pop(context);
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info, color: Colors.white),
+              title: const Text(
+                'About',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              ),
+            ),
+            const Spacer(),
+            ListTile(
+              leading: const Icon(Icons.logout_rounded, color: Colors.white),
+              title: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+              ),
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LandingPage(),
+                  ),
+                );
               },
             ),
           ],
         ),
       ),
-      backgroundColor: Colors.grey[300],
+      backgroundColor: Colors.grey[200],
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
-        backgroundColor: Colors.grey[300],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.black,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Shop'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag_rounded), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_rounded), label: 'Cart'),
         ],
       ),
     );

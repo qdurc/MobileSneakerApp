@@ -7,50 +7,77 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Logo Image
           Image.asset(
             'assets/images/nike_2.png',
-            width: 330,
+            width: 300,
           ),
-          SizedBox(
-            height: 60,
+          const SizedBox(
+            height: 50,
           ),
-          Text(
+
+          // Title
+          const Text(
             'Just Do It',
-            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+              color: Colors.black,
+            ),
           ),
+          const SizedBox(
+            height: 15,
+          ),
+
+          // Subtitle
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              'Brand new sneakers and custom kicks made with premium quality.',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(
+            height: 40,
+          ),
+
+          // Shop Now Button
           SizedBox(
-            height: 20,
-          ),
-          Text(
-            'Brand new sneakers and custom kicks made with premium quality',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.push(
+            width: 320,
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
-                  ));
-            },
-            color: Colors.black,
-            minWidth: 370,
-            padding: EdgeInsets.all(20),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              'Shop Now',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                    builder: (context) => const HomePage(),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: const Text(
+                'Shop Now',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
             ),
-          )
+          ),
         ],
       ),
     );

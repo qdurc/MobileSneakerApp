@@ -16,56 +16,101 @@ class ShoeTile extends StatelessWidget {
       margin: const EdgeInsets.only(right: 25),
       width: 280,
       decoration: BoxDecoration(
-          color: Colors.grey[100], borderRadius: BorderRadius.circular(12)),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            blurRadius: 10,
+            spreadRadius: 5,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            height: 40,
-          ),
-          ClipRRect(
+          const SizedBox(height: 20),
+
+          // Shoe Image
+          Center(
+            child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.asset(shoe.imagePath)),
-          SizedBox(
-            height: 30,
+              child: Image.asset(
+                shoe.imagePath,
+                height: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
+
+          const SizedBox(height: 20),
+
+          // Shoe Description
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Text(shoe.description,
-                style: TextStyle(color: Colors.grey[600])),
+            child: Text(
+              shoe.description,
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontSize: 14,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
+
+          const SizedBox(height: 10),
+
+          // Shoe Name and Price
           Padding(
-            padding: const EdgeInsets.only(left: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(shoe.name,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20)),
+                    Text(
+                      shoe.name,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
                     const SizedBox(height: 5),
-                    Text('\$${shoe.price}',
-                        style: const TextStyle(color: Colors.grey))
+                    Text(
+                      '\$${shoe.price}',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
                   ],
                 ),
+
+                // Add to Cart Button
                 GestureDetector(
                   onTap: onTap,
                   child: Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            bottomRight: Radius.circular(12))),
-                    child: const Icon(Icons.add, color: Colors.white),
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
                   ),
-                )
+                ),
               ],
             ),
-          )
+          ),
+
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -84,7 +129,10 @@ class _ShopPageState extends State<ShopPage> {
     Provider.of<Cart>(context, listen: false).addItemToCart(shoe);
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Item Added to Cart')),
+      SnackBar(
+        content: Text('${shoe.name} has been added to your cart!'),
+        duration: const Duration(seconds: 2),
+      ),
     );
   }
 
@@ -95,34 +143,52 @@ class _ShopPageState extends State<ShopPage> {
         padding: const EdgeInsets.fromLTRB(25, 0, 25, 0),
         child: Column(
           children: [
+            // Search Bar
             AnimSearchBar(
               width: 350,
               textController: TextEditingController(text: ''),
               onSuffixTap: () {},
-              helpText: 'Search...',
-              onSubmitted: (p0) => p0,
+              helpText: 'Search for sneakers...',
+              onSubmitted: (query) => print(query),
             ),
+
             const SizedBox(height: 20),
+
+            // Tagline
             const Text(
               'Everyone flies... some fly longer than others',
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(
+                color: Colors.grey,
+                fontStyle: FontStyle.italic,
+              ),
             ),
+
             const SizedBox(height: 20),
+
+            // Section Header
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
               children: const [
                 Text(
                   'Hot Picks 🔥',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                  ),
                 ),
                 Text(
                   'See all',
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
+
             const SizedBox(height: 20),
+
+            // Shoe List
             Expanded(
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
